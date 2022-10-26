@@ -10,7 +10,6 @@ from datetime import datetime
 
 
 dbpw = keyring.get_password("172.28.88.47", "simdbuploader")
-serverpw = keyring.get_password("172.28.88.47","icomera")
 printermachine='ME340_lager'
 user = os.getlogin()
 
