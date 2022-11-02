@@ -4,10 +4,9 @@ import keyring
 import os
 import pymysql
 import subprocess
-import time
 
 from datetime import datetime
-
+from time import sleep
 
 dbpw = keyring.get_password("172.28.88.47", "simdbuploader")
 printermachine='ME340_lager'
@@ -53,25 +52,34 @@ if __name__ == '__main__':
         customer_pn = sqlquery('customer_pn',itemnumber)
         todays_date = datetime.today().strftime('%Y-%m-%d')
         serialcheck = sqlquery('serial',itemnumber)
+        serials = []
         if serialcheck == 'True':
-            serial = input('Enter your serial: ')
+            while True:
+                serial = input('Enter your serial(s). Press return without input when finished: ')
+                if serial == "":
+                    break
+                serials.append(serial)
         else:
             serial = None
-        amount = input("Enter amount of labels to print: ")
-        cmd = "glabels-batch-qt  "\
-                f"/mnt/fs/Icomera/Line/SupplyChain/Production/Glabels/Templates/{labeloption}.glabels  "\
-                f"-D  description1={description1}  "\
-                f"-D  description2={description2}  "\
-                f"-D  description3={description3}  "\
-                f"-D  description4={description4}  "\
-                f"-D  description5={description5}  "\
-                f"-D  serial={serial}  "\
-                f"-D  pn={itemnumber}  "\
-                f"-D  todays_date={todays_date}  "\
-                f"-D  customer_pn={customer_pn}  "\
-                f"-D  revision={revision}  "\
-                f"-o  /home/{user}/{itemnumber}.pdf".split("  ")
-        subprocess.call(cmd)
-        printcmd = f"lp -n {amount} /home/{user}/{itemnumber}.pdf -d {printermachine}".split()
-        subprocess.call(printcmd)
-    done
+        amount = input("Enter amount of copies to print: ")
+        for serial in serials:
+            cmd = "glabels-batch-qt  "\
+                    f"/mnt/fs/Icomera/Line/SupplyChain/Production/Glabels/Templates/{labeloption}.glabels  "\
+                    f"-D  description1={description1}  "\
+                    f"-D  description2={description2}  "\
+                    f"-D  description3={description3}  "\
+                    f"-D  description4={description4}  "\
+                    f"-D  description5={description5}  "\
+                    f"-D  serial={serial}  "\
+                    f"-D  pn={itemnumber}  "\
+                    f"-D  todays_date={todays_date}  "\
+                    f"-D  customer_pn={customer_pn}  "\
+                    f"-D  revision={revision}  "\
+                    f"-o  /home/{user}/{serial}.pdf".split("  ")
+            sleep(.1)
+            subprocess.call(cmd)
+            sleep(2)
+            printcmd = f"lp -n {amount} /home/{user}/{itemnumber}.pdf -d {printermachine}".split()
+            sleep(.1)
+            subprocess.call(printcmd)
+            sleep(2)
