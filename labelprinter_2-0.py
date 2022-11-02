@@ -60,7 +60,7 @@ if __name__ == '__main__':
                     break
                 serials.append(serial)
         else:
-            serial = None
+            serials.append(itemnumber)
         amount = input("Enter amount of copies to print: ")
         for serial in serials:
             cmd = "glabels-batch-qt  "\
@@ -79,7 +79,7 @@ if __name__ == '__main__':
             sleep(.1)
             subprocess.call(cmd)
             sleep(2)
-            printcmd = f"lp -n {amount} /home/{user}/{itemnumber}.pdf -d {printermachine}".split()
+            printcmd = f"lp -n {amount} /home/{user}/{serial}.pdf -d {printermachine}".split()
             sleep(.1)
             subprocess.call(printcmd)
             sleep(2)
