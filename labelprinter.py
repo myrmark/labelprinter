@@ -90,4 +90,4 @@ if __name__ == '__main__':
         cmd = f"lp -n {amount} {files_strings} -d {printer}".split()
         #printcmd = f"lp -n {amount} /home/{user}/{serial}.pdf -d {printermachine}".split()
         #sleep(.1)
-        subprocess.call(printcmd)
+        subprocess.call(cmd)
