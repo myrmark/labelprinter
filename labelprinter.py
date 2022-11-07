@@ -72,7 +72,7 @@ if __name__ == '__main__':
         commands = []
         for serial in serials:
             cmd = "glabels-batch-qt  "\
-                    f"/mnt/fs/Icomera/Line/SupplyChain/Production/Glabels/Templates/{labeloption}.glabels  "\
+                    f"/mnt/fs/Icomera/Line/Supply Chain/Production/Glabels/Templates/{labeloption}.glabels  "\
                     f"-D  description1={description1}  "\
                     f"-D  description2={description2}  "\
                     f"-D  description3={description3}  "\
