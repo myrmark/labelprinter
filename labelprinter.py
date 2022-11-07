@@ -83,7 +83,7 @@ if __name__ == '__main__':
                     f"-D  todays_date={todays_date}  "\
                     f"-D  customer_pn={customer_pn}  "\
                     f"-D  revision={revision}  "\
-                    f"-o  /home/{user}/{serial}.pdf".split("  ")
+                    f"-o  /home/{user}/labelfiles/{serial}.pdf".split("  ")
             commands.append(f"-c /home/{user}/labelfiles/{serial}.pdf")
             subprocess.call(cmd)
         files_strings = " ".join(commands)
