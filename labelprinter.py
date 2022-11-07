@@ -88,6 +88,6 @@ if __name__ == '__main__':
             subprocess.call(cmd)
         files_strings = " ".join(commands)
         cmd = f"lp -n {amount} {files_strings} -d {printer}".split()
-        #printcmd = f"lp -n {amount} /home/{user}/{serial}.pdf -d {printermachine}".split()
+        #printcmd = f"lp -n {amount} /home/{user}/labelfiles/{serial}.pdf -d {printermachine}".split()
         #sleep(.1)
         subprocess.call(cmd)
