@@ -9,8 +9,15 @@ from datetime import datetime
 from time import sleep
 
 dbpw = keyring.get_password("172.28.88.47", "simdbuploader")
-printermachine='ME340_lager'
+printer='ME340_lager'
 user = os.getlogin()
+
+
+try:
+    os.listdir(f"/home/{user}/labelfiles")
+except Exception:
+    print("labelfiles folder was not found. Creating folder")
+    os.mkdir(f"/home/{user}/labelfiles")
 
 
 def sqlquery(column,itemnumber):
@@ -62,6 +69,7 @@ if __name__ == '__main__':
         else:
             serials.append(itemnumber)
         amount = input("Enter amount of copies to print: ")
+        commands = []
         for serial in serials:
             cmd = "glabels-batch-qt  "\
                     f"/mnt/fs/Icomera/Line/SupplyChain/Production/Glabels/Templates/{labeloption}.glabels  "\
@@ -76,10 +84,10 @@ if __name__ == '__main__':
                     f"-D  customer_pn={customer_pn}  "\
                     f"-D  revision={revision}  "\
                     f"-o  /home/{user}/{serial}.pdf".split("  ")
-            sleep(.1)
+            commands.append(f"-c /home/{user}/labelfiles/{serial}.pdf")
             subprocess.call(cmd)
-            sleep(2)
-            printcmd = f"lp -n {amount} /home/{user}/{serial}.pdf -d {printermachine}".split()
-            sleep(.1)
-            subprocess.call(printcmd)
-            sleep(2)
+        files_strings = " ".join(commands)
+        cmd = f"lp -n {amount} {files_strings} -d {printer}".split()
+        #printcmd = f"lp -n {amount} /home/{user}/{serial}.pdf -d {printermachine}".split()
+        #sleep(.1)
+        subprocess.call(printcmd)
