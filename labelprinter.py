@@ -3,12 +3,12 @@
 import keyring
 import lzma
 import os
-import pick
 import pymysql
 import subprocess
 import tarfile
 
 from datetime import datetime
+from pick import pick
 from time import sleep
 
 dbpw = keyring.get_password("172.28.88.47", "simdbuploader")
