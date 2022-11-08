@@ -3,6 +3,7 @@
 import keyring
 import lzma
 import os
+import pick
 import pymysql
 import subprocess
 import tarfile
