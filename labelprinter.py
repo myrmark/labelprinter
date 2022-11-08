@@ -76,7 +76,7 @@ try:
     printer_check = printer_check.decode().strip()
 except Exception:
     print(f"Printer Zebra_ZT230_production not installed. Installing..")
-    cmd = 'lpadmin -p Zebra_ZT230_production -E -v socket://172.28.88.44:9100 -o PageSize=Custom.101x152mm'.split()
+    cmd = 'lpadmin -p Zebra_ZT230_production -E -m drv:///sample.drv/zebra.ppd -v socket://172.28.88.44:9100 -o PageSize=Custom.101x152mm'.split()
     subprocess.run(cmd)
 
 
@@ -87,7 +87,7 @@ try:
     printer_check = printer_check.decode().strip()
 except Exception:
     print(f"Printer Zebra_ZT230_lager not installed. Installing..")
-    cmd = 'lpadmin -p Zebra_ZT230_lager -E -v socket://172.28.88.45:9100 -o PageSize=Custom.101x152mm'.split()
+    cmd = 'lpadmin -p Zebra_ZT230_lager -E -m drv:///sample.drv/zebra.ppd -v socket://172.28.88.45:9100 -o PageSize=Custom.101x152mm'.split()
     subprocess.run(cmd)
 
 
