@@ -135,6 +135,7 @@ if __name__ == '__main__':
         revision = sqlquery('revision',itemnumber)
         customer_pn = sqlquery('customer_pn',itemnumber)
         todays_date = datetime.today().strftime('%Y-%m-%d')
+        mmyyyy = datetime.today().strftime('%m-%Y')
         serialcheck = sqlquery('serial',itemnumber)
         serials = []
         if serialcheck == 'True':
@@ -158,6 +159,7 @@ if __name__ == '__main__':
                     f"-D  serial={serial}  "\
                     f"-D  pn={itemnumber}  "\
                     f"-D  todays_date={todays_date}  "\
+                    f"-D  mmyyyy={mmyyyy}  "\
                     f"-D  customer_pn={customer_pn}  "\
                     f"-D  revision={revision}  "\
                     f"-o  /home/{user}/labelfiles/{serial}.pdf".split("  ")
